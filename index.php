@@ -55,6 +55,7 @@ $list = $studentManager->getAll();
             <td><?php echo $value->phone ?></td>
             <td><?php echo $value->address ?></td>
             <td><a href="delete.php?id=<?php echo $value->id ?>">Delete</a></td>
+            <td><a href="edit.php?id=<?php echo $value->id ?>">Edit</a></td>
         </tr>
     <?php endforeach; ?>
 </table>
