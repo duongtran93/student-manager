@@ -1,6 +1,6 @@
 <?php
 
-class DBconnect
+class DBConnect
 {
     protected $dsn;
     protected $username;

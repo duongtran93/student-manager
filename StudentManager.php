@@ -6,7 +6,7 @@ class StudentManager
 
     public function __construct()
     {
-        $db = new DBconnect('mysql:host=localhost;dbname=student_manager', 'root', 'ngocduong93');
+        $db = new DBConnect('mysql:host=localhost;dbname=student_manager', 'root', 'ngocduong93');
         $this->conn = $db->connect();
     }
 
@@ -33,17 +33,17 @@ class StudentManager
         $stmt->execute();
     }
 
-    public function delete($index)
+    public function delete($id)
     {
         $stmt = $this->conn->prepare('DELETE FROM Staffs WHERE id=:id');
-        $stmt->bindParam(':id', $index);
+        $stmt->bindParam(':id', $id);
         $stmt->execute();
     }
 
-    public function showEdit($index)
+    public function getStudentById($id)
     {
         $stmt = $this->conn->prepare('SELECT name,phone,address FROM Staffs WHERE id=:id');
-        $stmt->bindParam(':id', $index);
+        $stmt->bindParam(':id', $id);
         $stmt->execute();
         return $stmt->fetch();
     }

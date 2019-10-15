@@ -1,12 +1,12 @@
 <?php
 include_once 'User.php';
-include_once 'DBconnect.php';
+include_once 'DBConnect.php';
 include_once 'StudentManager.php';
 
 $studentManager = new StudentManager();
-$index = $_GET['id'];
+$id = $_GET['id'];
 
-$stmt = $studentManager->showEdit($index);
+$stmt = $studentManager->getStudentById($id);
 $name = $stmt['name'];
 $phone = $stmt['phone'];
 $address = $stmt['address'];
@@ -25,9 +25,8 @@ $address = $stmt['address'];
 <body>
 <form action="update.php" method="post">
     <table>
-        <tr>
-            <td><input type="text" name="id" value="<?php echo $index ?>"></td>
-        </tr>
+        <tr><h1>Quan ly sinh vien</h1></tr>
+        <tr><input style="display: none" name="id" value="<?php echo $id?>"></tr>
         <tr>
             <td>Name:</td>
             <td><input type="text" name="name" value="<?php echo $name ?>"></td>
@@ -46,26 +45,7 @@ $address = $stmt['address'];
             </td>
         </tr>
     </table>
-
-    <table border="1">
-        <tr>
-            <td>STT</td>
-            <td>Name</td>
-            <td>Phone</td>
-            <td>Address</td>
-        </tr>
-
-        <?php
-        $students = $studentManager->getAll();
-        foreach ($students as $key => $value): ?>
-            <tr>
-                <td><?php echo ++$key ?></td>
-                <td><?php echo $value->name ?></td>
-                <td><?php echo $value->phone ?></td>
-                <td><?php echo $value->address ?></td>
-            </tr>
-        <?php endforeach; ?>
-    </table>
 </form>
+
 </body>
 </html>
