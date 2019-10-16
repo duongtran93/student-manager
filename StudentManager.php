@@ -17,7 +17,7 @@ class StudentManager
         $result = $stmt->fetchAll();
         $staffs = [];
         foreach ($result as $value) {
-            $staff = new User($value['name'], $value['phone'], $value['address']);
+            $staff = new User($value['name'], $value['phone'], $value['address'], $value['image']);
             $staff->id = $value['id'];
             array_push($staffs, $staff);
         }
@@ -26,10 +26,11 @@ class StudentManager
 
     public function add($student)
     {
-        $stmt = $this->conn->prepare('INSERT INTO Staffs(name, phone, address) VALUES (:name , :phone, :address)');
+        $stmt = $this->conn->prepare('INSERT INTO Staffs(name, phone, address, image) VALUES (:name , :phone, :address, :image)');
         $stmt->bindParam(':name', $student->name);
         $stmt->bindParam(':phone', $student->phone);
         $stmt->bindParam(':address', $student->address);
+        $stmt->bindParam(':image', $student->image);
         $stmt->execute();
     }
 

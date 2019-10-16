@@ -25,7 +25,7 @@ $address = $stmt['address'];
 <body>
 <form action="update.php" method="post">
     <table>
-        <tr><h1>Quan ly sinh vien</h1></tr>
+        <tr><h1>Quản lý sinh viên</h1></tr>
         <tr><input style="display: none" name="id" value="<?php echo $id?>"></tr>
         <tr>
             <td>Name:</td>
