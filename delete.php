@@ -4,7 +4,10 @@ include_once 'StudentManager.php';
 include_once 'DBConnect.php';
 
 $studentManager = new StudentManager();
-$index = $_GET['id'];
-$studentManager->delete($index);
+$id = $_GET['id'];
+$student = $studentManager->getStudentById($id);
+$image = $student->image;
+unlink("upload/".basename($image));
+$studentManager->delete($id, $image);
 
 header("Location:index.php");

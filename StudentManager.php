@@ -1,4 +1,5 @@
 <?php
+include_once 'User.php';
 
 class StudentManager
 {
@@ -34,7 +35,7 @@ class StudentManager
         $stmt->execute();
     }
 
-    public function delete($id)
+    public function delete($id, $image)
     {
         $stmt = $this->conn->prepare('DELETE FROM Staffs WHERE id=:id');
         $stmt->bindParam(':id', $id);
@@ -43,19 +44,28 @@ class StudentManager
 
     public function getStudentById($id)
     {
-        $stmt = $this->conn->prepare('SELECT name,phone,address FROM Staffs WHERE id=:id');
+
+        $stmt = $this->conn->prepare('SELECT name,phone,address, image FROM Staffs WHERE id=:id');
         $stmt->bindParam(':id', $id);
         $stmt->execute();
-        return $stmt->fetch();
+        $student =  $stmt->fetch();
+        $name = $student['name'];
+        $phone = $student['phone'];
+        $address = $student['address'];
+        $image = $student['image'];
+        $student = new User($name, $phone, $address, $image);
+        return $student;
+
     }
 
-    public function update($index, $name, $phone, $address)
+    public function update($id, $student)
     {
-        $stmt = $this->conn->prepare('UPDATE Staffs SET name=:name,phone=:phone,address=:address WHERE id=:id');
-        $stmt->bindParam(':name', $name);
-        $stmt->bindParam(':phone', $phone);
-        $stmt->bindParam(':address', $address);
-        $stmt->bindParam(':id', $index);
+        $stmt = $this->conn->prepare('UPDATE Staffs SET name=:name,phone=:phone,address=:address,image=:image WHERE id=:id');
+        $stmt->bindParam(':name', $student->name);
+        $stmt->bindParam(':phone', $student->phone);
+        $stmt->bindParam(':address', $student->address);
+        $stmt->bindParam(':image', $student->image);
+        $stmt->bindParam(':id', $id);
         $stmt->execute();
 
     }

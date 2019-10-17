@@ -7,9 +7,6 @@ $studentManager = new StudentManager();
 $id = $_GET['id'];
 
 $stmt = $studentManager->getStudentById($id);
-$name = $stmt['name'];
-$phone = $stmt['phone'];
-$address = $stmt['address'];
 
 ?>
 
@@ -23,21 +20,29 @@ $address = $stmt['address'];
     <title>Document</title>
 </head>
 <body>
-<form action="update.php" method="post">
+<form action="update.php" method="post" enctype="multipart/form-data">
     <table>
         <tr><h1>Quản lý sinh viên</h1></tr>
         <tr><input style="display: none" name="id" value="<?php echo $id?>"></tr>
         <tr>
             <td>Name:</td>
-            <td><input type="text" name="name" value="<?php echo $name ?>"></td>
+            <td><input type="text" name="name" value="<?php echo $stmt->name ?>"></td>
         </tr>
         <tr>
             <td>Phone:</td>
-            <td><input type="text" name="phone" value="<?php echo $phone ?>"></td>
+            <td><input type="text" name="phone" value="<?php echo $stmt->phone ?>"></td>
         </tr>
         <tr>
             <td>Address:</td>
-            <td><input type="text" name="address" value="<?php echo $address ?>"></td>
+            <td><input type="text" name="address" value="<?php echo $stmt->address ?>"></td>
+        </tr>
+        <tr>
+            <td>
+                <img src="<?php echo $stmt->image ?>" width="50" height="50">
+            </td>
+            <td>
+                <input type="file" name="image">
+            </td>
         </tr>
         <tr>
             <td>
